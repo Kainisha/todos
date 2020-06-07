@@ -8,7 +8,7 @@ import { getTodos as getTodosAction } from 'actions';
 const TodoWrapperStyled = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-row-gap: 1rem;
+    grid-row-gap: 0.5rem;
 `;
 
 const TodoWrapper = ({ todos, getTodos }) => {
@@ -19,7 +19,7 @@ const TodoWrapper = ({ todos, getTodos }) => {
     return (
         <TodoWrapperStyled>
             { todos.map(({ title, completed, id }) => (
-                <TodoItem title={title} completed={completed} key={`todo-${id}`} />
+                <TodoItem title={title} completed={completed} key={`todo-${id}`} id={id} />
             )) }
         </TodoWrapperStyled>
     )

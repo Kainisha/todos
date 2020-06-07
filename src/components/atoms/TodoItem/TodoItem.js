@@ -14,12 +14,6 @@ const TodoItemStyled = styled.div`
     grid-template-columns: 1fr 2rem 2rem;
     align-items: center;
     border: 1px solid lightgray;
-    transition: 300ms ease-in-out;
-
-    ${({ completed }) => completed && css`
-        background-color: green;
-        border-color: darkgreen;
-    `}
 `;
 
 const TodoItemTitleStyled = styled.div`
@@ -28,6 +22,8 @@ const TodoItemTitleStyled = styled.div`
 
     ${({ completed }) => completed && css`
         color: white;
+        background-color: green;
+        border-color: darkgreen;
     `}
 `;
 
@@ -42,7 +38,11 @@ const TodoItemCompleteStyled = styled.div`
     &:hover {
         background-color: green;
         color: white;
-    }
+    };
+
+    ${({ completed }) => completed && css`
+        background-color: green;
+    `}
 `;
 
 const TodoItemRemoveStyled = styled.div`
@@ -76,11 +76,11 @@ const TodoItem = ({ title, completed, id, updateTodo, deleteTodo }) => {
     }
 
     return (
-        <TodoItemStyled completed={completed}>
+        <TodoItemStyled>
             <TodoItemTitleStyled completed={completed}>
                 { title }
             </TodoItemTitleStyled>
-            <TodoItemCompleteStyled>
+            <TodoItemCompleteStyled completed={completed}>
                 <FontAwesomeIcon icon="check" size="sm" onClick={handleUpdate} />
             </TodoItemCompleteStyled>
             <TodoItemRemoveStyled completed={completed} onClick={handleDelete}>

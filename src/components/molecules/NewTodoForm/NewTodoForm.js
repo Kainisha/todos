@@ -11,6 +11,7 @@ const NewTodoFormStyled = styled.div`
     border: 2px solid lightgray;
     display: grid;
     grid-template-columns: 1fr 2rem;
+    grid-column-gap: 1rem;
 `;
 
 const ButtonAreaStyled = styled.div`
@@ -20,7 +21,16 @@ const ButtonAreaStyled = styled.div`
 `
 
 const AddButtonStyled = styled.button`
+    background-color: green;
+    color: white;
+    transition: background-color 300ms ease-in-out;
+    border: 1px solid darkgreen;
+    height: 2rem;
+    font-weight: 600;
 
+    &:hover {
+        background-color: darkgreen;
+    }
 `;
 
 const NewTodoForm = ({ addTodo }) => {

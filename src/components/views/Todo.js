@@ -20,7 +20,7 @@ const Todo = ({ todos }) => {
         <TodoStyled>
             <ErrorText />
             <RequestLoader />
-            { showForm && <NewTodoForm /> }
+                { true && <NewTodoForm /> }
             <TodoWrapper />
         </TodoStyled>
     )

@@ -1,4 +1,4 @@
-import { SET_ERROR, SET_REQUEST, SET_TODOS, UPDATE_TODOS, DELETE_TODOS } from 'actions'
+import { SET_ERROR, SET_REQUEST, SET_TODOS } from 'actions'
 
 const initState = {
     todos: [],
@@ -29,32 +29,6 @@ const TodosReducer = (state = initState, { type, payload }) => {
             return {
                 ...state,
                 todos
-            }
-        }
-        case UPDATE_TODOS: {
-            const { todos } = state;
-            const updatedTodos = todos.map(todo => {
-                if (todo.id !== payload.id) {
-                    return todo;
-                }
-
-                const updatedTodo = Object.assign(todo, payload)
-                return updatedTodo;
-            })
-
-            return {
-                ...state,
-                todos: updatedTodos
-            }
-        }
-        case DELETE_TODOS: {
-            const { todos } = state;
-            const { id } = payload;
-            const updatedTodos = todos.filter(todo => todo.id !== id);
-
-            return {
-                ...state,
-                todos: updatedTodos
             }
         }
         default: {

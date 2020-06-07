@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import url from 'api';
-import { GET_TODOS, PUT_TODO, DELETE_TODO, POST_TODO, updateTodos, setError, setRequest, setTodos, deleteTodos } from 'actions';
+import { GET_TODOS, PUT_TODO, DELETE_TODO, POST_TODO, setError, setRequest, setTodos } from 'actions';
 
 const getTodosFromState = (state) => state.todos;
 
@@ -42,9 +42,20 @@ function* putTodo ({ payload: { id, title, completed }}) {
     try {
         const data = { title, completed };
         const response = yield call(putRequest, { id, data });
-        const { data: todo } = response;
         yield put(setRequest({ isRequest: false }));
-        yield put(updateTodos({ todo }));
+
+        const { data: updatedTodo } = response;
+
+        const todosState = yield select(getTodosFromState);
+        const updatedTodos = todosState.map(todo => {
+            if (todo.id !== id) {
+                return todo;
+            }
+
+            return Object.assign(todo, updatedTodo);
+        });
+
+        yield put(setTodos({ todos: updatedTodos}));
     } catch (error) {
         yield put(setError({ isError: true, errorText: error.message }));
         yield put(setRequest({ isRequest: false }));
@@ -58,7 +69,11 @@ function* deleteTodo ({ payload: { id }}) {
     try {
         yield call(deleteRequest, { id });
         yield put(setRequest({ isRequest: false }));
-        yield put(deleteTodos({ id }));
+
+        const todosState = yield select(getTodosFromState);
+        const updatedTodos = todosState.filter(todo => todo.id !== id);
+
+        yield put(setTodos({ todos: updatedTodos}));
     } catch (error) {
         yield put(setError({ isError: true, errorText: error.message }));
         yield put(setRequest({ isRequest: false }));
@@ -72,15 +87,13 @@ function* postTodo ({ payload: { title, completed } }) {
     try {
         const data = { title, completed }
         const response = yield call(postRequest, { data });
+
         yield put(setRequest({ isRequest: false }));
 
         const { data: newTodo } = response;
         newTodo.userId = 1;
-
         const todosState = yield select(getTodosFromState);
 
-        //todosState.push(newTodo);
-        //console.log(todosState)
         yield put(setTodos({ todos: [...todosState, newTodo] }));
     } catch (error) {
         yield put(setError({ isError: true, errorText: error.message }));

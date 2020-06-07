@@ -5,8 +5,6 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const POST_TODO = 'POST_TODO';
 export const SET_ERROR = 'SET_ERROR';
 export const SET_REQUEST = 'SET_REQUEST';
-export const UPDATE_TODOS = 'UPDATE_TODOS';
-export const DELETE_TODOS = 'DELETE_TODOS';
 
 export const getTodos = () => ({
     type: GET_TODOS
@@ -41,13 +39,3 @@ export const setTodos = ({ todos }) => ({
     type: SET_TODOS,
     payload: { todos }
 });
-
-export const updateTodos = ({ todo }) => ({
-    type: UPDATE_TODOS,
-    payload: todo
-});
-
-export const deleteTodos = ({ id }) => ({
-    type: DELETE_TODOS,
-    payload: { id }
-})

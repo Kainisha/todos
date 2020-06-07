@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const InputTextStyled = styled.input`
-
+    padding: 0 0.25rem;
 `;
 
 const InputText = ({ onChange }) => {
@@ -15,7 +15,7 @@ const InputText = ({ onChange }) => {
     }
 
     return (
-        <InputTextStyled type="text" value={value} onChange={handleChange} />
+        <InputTextStyled type="text" value={value} placeholder="title" onChange={handleChange} />
     )
 };
 
